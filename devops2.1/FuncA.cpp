@@ -8,7 +8,7 @@ int FuncA::solve(int n) {
     int sign = 1;  
 
     for (int i = 0; i < n; ++i) {
-        int termIndex = 2 * i + 1;
+        int termIndex = 2 * i + 1; 
         double term = sign * std::pow(x, termIndex) / factorial(termIndex);
         sum += term;
         sign = -sign;  

@@ -4,7 +4,7 @@
 
 class FuncA {
 public:
-    int solve(int n);
+    int solve(int n); 
 
 private:
     int factorial(int n);

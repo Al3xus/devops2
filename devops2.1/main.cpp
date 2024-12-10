@@ -3,7 +3,7 @@
 
 int main() {
     FuncA object;
-    int n = 3;
+    int n = 10;
     std::cout << "Result of FuncA: " << object.solve(n) << std::endl;
     return 0;
 }
