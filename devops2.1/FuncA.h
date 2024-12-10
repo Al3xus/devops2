@@ -2,9 +2,12 @@
 #ifndef FUNCA_H
 #define FUNCA_H
 
-
 class FuncA {
 public:
-    int solve();
+    int solve(int n); 
+
+private:
+    int factorial(int n);
 };
+
 #endif
