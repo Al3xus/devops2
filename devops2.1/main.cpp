@@ -1,9 +1,9 @@
 #include <iostream>
 #include "FuncA.h"
 
-
 int main() {
     FuncA object;
-    std::cout << "Result of FuncA: " << object.solve() << std::endl;
+    int n = 3;
+    std::cout << "Result of FuncA: " << object.solve(n) << std::endl;
     return 0;
 }
