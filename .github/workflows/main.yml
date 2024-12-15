@@ -1,15 +1,15 @@
-name: Build Tarball Distribution
+name: Build Debian Package
 
 on:
   push:
     branches:
-      - branchAutomake
+      - branchAutoPackage
   pull_request:
     branches:
-      - branchAutomake
+      - branchAutoPackage
 
 jobs:
-  build-tarball:
+  build-debian:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,26 +19,14 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y autoconf automake libtool build-essential
+        sudo apt-get install -y build-essential devscripts debhelper-compat dh-make
 
-    - name: Generate Build System
+    - name: Build Debian Package
       run: |
-        aclocal
-        autoconf
-        automake --add-missing
+        debuild -us -uc
 
-    - name: Configure and Build
-      run: |
-        ./configure
-        make dist
-
-    - name: create-tarball
-      run: |
-        make dist
-        ls -l *.tar.gz # Verify tarball creation
-
-    - name: Upload distribution tarball
-      uses: actions/upload-artifact@v4
-      with:
-        name: create-tarball
-        path: "*.tar.gz"
+      - name: Upload .deb package
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-package
+          path: "./*.deb"
