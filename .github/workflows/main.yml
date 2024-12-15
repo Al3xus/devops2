@@ -1,34 +1,42 @@
-name: Build and Upload Debian Package
+name: CI
 
 on:
   push:
     branches:
-      - branchAutoPackage
+      - branchAutoTest
   pull_request:
     branches:
-      - branchAutoPackage
+      - branchAutoTest
 
 jobs:
-  build-debian:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential devscripts debhelper-compat dh-make
+      - name: Set up C++ environment
+        uses: actions/setup-cpp@v1
 
-    - name: Build Debian package
-      run: |
-        dpkg-buildpackage -us -uc
-        mv ../myprogram_1.0-1_amd64.deb ./debian/packages/
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ make
 
-    - name: Upload .deb package
-      uses: actions/upload-artifact@v4
-      with:
-        name: deb-package
-        path: ./debian/packages/myprogram_1.0-1_amd64.deb
+      - name: Build the project
+        run: |
+          autoreconf --install
+          ./configure
+          make
 
+      - name: Run unit tests
+        run: |
+          make
+
+      - name: Upload test results (optional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./test_FuncA
