@@ -2,19 +2,19 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Name of package */
-#define PACKAGE "myprogram"
+#define PACKAGE "program"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "0al3xus0@gmail.com"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "MyProgram"
+#define PACKAGE_NAME "Program"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "MyProgram 1.0"
+#define PACKAGE_STRING "Program 1.0"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "myprogram"
+#define PACKAGE_TARNAME "program"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""

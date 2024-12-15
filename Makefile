@@ -70,10 +70,10 @@ am__make_running_with_option = \
   test $$has_opt = yes
 am__make_dryrun = (target_option=n; $(am__make_running_with_option))
 am__make_keepgoing = (target_option=k; $(am__make_running_with_option))
-pkgdatadir = $(datadir)/myprogram
-pkgincludedir = $(includedir)/myprogram
-pkglibdir = $(libdir)/myprogram
-pkglibexecdir = $(libexecdir)/myprogram
+pkgdatadir = $(datadir)/program
+pkgincludedir = $(includedir)/program
+pkglibdir = $(libdir)/program
+pkglibexecdir = $(libexecdir)/program
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -86,7 +86,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = program$(EXEEXT)
+bin_PROGRAMS = myprogram$(EXEEXT)
+check_PROGRAMS = test_FuncA$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -102,9 +103,12 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_program_OBJECTS = program-main.$(OBJEXT) program-FuncA.$(OBJEXT)
-program_OBJECTS = $(am_program_OBJECTS)
-program_DEPENDENCIES =
+am_myprogram_OBJECTS = main.$(OBJEXT) FuncA.$(OBJEXT)
+myprogram_OBJECTS = $(am_myprogram_OBJECTS)
+myprogram_LDADD = $(LDADD)
+am_test_FuncA_OBJECTS = test_FuncA.$(OBJEXT) FuncA.$(OBJEXT)
+test_FuncA_OBJECTS = $(am_test_FuncA_OBJECTS)
+test_FuncA_DEPENDENCIES =
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -120,13 +124,9 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/program-FuncA.Po \
-	./$(DEPDIR)/program-main.Po
+am__depfiles_remade = ./$(DEPDIR)/FuncA.Po ./$(DEPDIR)/main.Po \
+	./$(DEPDIR)/test_FuncA.Po
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 AM_V_CXX = $(am__v_CXX_$(V))
@@ -140,8 +140,8 @@ AM_V_CXXLD = $(am__v_CXXLD_$(V))
 am__v_CXXLD_ = $(am__v_CXXLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(program_SOURCES)
-DIST_SOURCES = $(program_SOURCES)
+SOURCES = $(myprogram_SOURCES) $(test_FuncA_SOURCES)
+DIST_SOURCES = $(myprogram_SOURCES) $(test_FuncA_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -169,8 +169,8 @@ ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
 AM_RECURSIVE_TARGETS = cscope
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in depcomp \
-	install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in compile \
+	depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -218,11 +218,11 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} /workspaces/devops2/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
-PACKAGE = myprogram
+PACKAGE = program
 PACKAGE_BUGREPORT = 0al3xus0@gmail.com
-PACKAGE_NAME = MyProgram
-PACKAGE_STRING = MyProgram 1.0
-PACKAGE_TARNAME = myprogram
+PACKAGE_NAME = Program
+PACKAGE_STRING = Program 1.0
+PACKAGE_TARNAME = program
 PACKAGE_URL = 
 PACKAGE_VERSION = 1.0
 PATH_SEPARATOR = :
@@ -273,9 +273,10 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-program_SOURCES = main.cpp FuncA.cpp
-program_LDADD = 
-program_CPPFLAGS = -I.
+AUTOMAKE_OPTIONS = foreign
+myprogram_SOURCES = main.cpp FuncA.cpp
+test_FuncA_SOURCES = test_FuncA.cpp FuncA.cpp
+test_FuncA_LDADD = -lm
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -372,9 +373,16 @@ uninstall-binPROGRAMS:
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
-program$(EXEEXT): $(program_OBJECTS) $(program_DEPENDENCIES) $(EXTRA_program_DEPENDENCIES) 
-	@rm -f program$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(program_OBJECTS) $(program_LDADD) $(LIBS)
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
+
+myprogram$(EXEEXT): $(myprogram_OBJECTS) $(myprogram_DEPENDENCIES) $(EXTRA_myprogram_DEPENDENCIES) 
+	@rm -f myprogram$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(myprogram_OBJECTS) $(myprogram_LDADD) $(LIBS)
+
+test_FuncA$(EXEEXT): $(test_FuncA_OBJECTS) $(test_FuncA_DEPENDENCIES) $(EXTRA_test_FuncA_DEPENDENCIES) 
+	@rm -f test_FuncA$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_FuncA_OBJECTS) $(test_FuncA_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -382,8 +390,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/program-FuncA.Po # am--include-marker
-include ./$(DEPDIR)/program-main.Po # am--include-marker
+include ./$(DEPDIR)/FuncA.Po # am--include-marker
+include ./$(DEPDIR)/main.Po # am--include-marker
+include ./$(DEPDIR)/test_FuncA.Po # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -404,34 +413,6 @@ am--depfiles: $(am__depfiles_remade)
 #	$(AM_V_CXX)source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-program-main.o: main.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT program-main.o -MD -MP -MF $(DEPDIR)/program-main.Tpo -c -o program-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/program-main.Tpo $(DEPDIR)/program-main.Po
-#	$(AM_V_CXX)source='main.cpp' object='program-main.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o program-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
-
-program-main.obj: main.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT program-main.obj -MD -MP -MF $(DEPDIR)/program-main.Tpo -c -o program-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/program-main.Tpo $(DEPDIR)/program-main.Po
-#	$(AM_V_CXX)source='main.cpp' object='program-main.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o program-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
-
-program-FuncA.o: FuncA.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT program-FuncA.o -MD -MP -MF $(DEPDIR)/program-FuncA.Tpo -c -o program-FuncA.o `test -f 'FuncA.cpp' || echo '$(srcdir)/'`FuncA.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/program-FuncA.Tpo $(DEPDIR)/program-FuncA.Po
-#	$(AM_V_CXX)source='FuncA.cpp' object='program-FuncA.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o program-FuncA.o `test -f 'FuncA.cpp' || echo '$(srcdir)/'`FuncA.cpp
-
-program-FuncA.obj: FuncA.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT program-FuncA.obj -MD -MP -MF $(DEPDIR)/program-FuncA.Tpo -c -o program-FuncA.obj `if test -f 'FuncA.cpp'; then $(CYGPATH_W) 'FuncA.cpp'; else $(CYGPATH_W) '$(srcdir)/FuncA.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/program-FuncA.Tpo $(DEPDIR)/program-FuncA.Po
-#	$(AM_V_CXX)source='FuncA.cpp' object='program-FuncA.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(program_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o program-FuncA.obj `if test -f 'FuncA.cpp'; then $(CYGPATH_W) 'FuncA.cpp'; else $(CYGPATH_W) '$(srcdir)/FuncA.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -659,6 +640,7 @@ distcleancheck: distclean
 	       $(distcleancheck_listfiles) ; \
 	       exit 1; } >&2
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 check: check-am
 all-am: Makefile $(PROGRAMS) config.h
 installdirs:
@@ -697,12 +679,14 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-		-rm -f ./$(DEPDIR)/program-FuncA.Po
-	-rm -f ./$(DEPDIR)/program-main.Po
+		-rm -f ./$(DEPDIR)/FuncA.Po
+	-rm -f ./$(DEPDIR)/main.Po
+	-rm -f ./$(DEPDIR)/test_FuncA.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -750,8 +734,9 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-		-rm -f ./$(DEPDIR)/program-FuncA.Po
-	-rm -f ./$(DEPDIR)/program-main.Po
+		-rm -f ./$(DEPDIR)/FuncA.Po
+	-rm -f ./$(DEPDIR)/main.Po
+	-rm -f ./$(DEPDIR)/test_FuncA.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -769,24 +754,24 @@ ps-am:
 
 uninstall-am: uninstall-binPROGRAMS
 
-.MAKE: all install-am install-strip
+.MAKE: all check-am install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--depfiles am--refresh check \
-	check-am clean clean-binPROGRAMS clean-cscope clean-generic \
-	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
-	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
-	distcheck distclean distclean-compile distclean-generic \
-	distclean-hdr distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am html html-am info info-am \
-	install install-am install-binPROGRAMS install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-binPROGRAMS
+	check-am clean clean-binPROGRAMS clean-checkPROGRAMS \
+	clean-cscope clean-generic cscope cscopelist-am ctags ctags-am \
+	dist dist-all dist-bzip2 dist-gzip dist-lzip dist-shar \
+	dist-tarZ dist-xz dist-zip distcheck distclean \
+	distclean-compile distclean-generic distclean-hdr \
+	distclean-tags distcleancheck distdir distuninstallcheck dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-binPROGRAMS install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
+	tags tags-am uninstall uninstall-am uninstall-binPROGRAMS
 
 .PRECIOUS: Makefile
 

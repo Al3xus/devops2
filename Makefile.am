@@ -7,3 +7,6 @@ check_PROGRAMS = test_FuncA
 test_FuncA_SOURCES = test_FuncA.cpp FuncA.cpp
 
 test_FuncA_LDADD = -lm
+
+AM_CPPFLAGS = -I$(top_srcdir)
+
