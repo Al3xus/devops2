@@ -16,16 +16,15 @@ void test_solve() {
     FuncA obj;
     double x = 0.5;
 
-    // Test the series sum for small terms
     double result = obj.solve(x, 5);
     double expected = 1 / (1 - x);
     assert(std::abs(result - expected) < 1e-6);
 
-    // Test with a different value of x and more terms
     result = obj.solve(0.3, 100);
     expected = 1 / (1 - 0.3);
     assert(std::abs(result - expected) < 1e-6);
 }
+
 
 int main() {
     test_factorial();
