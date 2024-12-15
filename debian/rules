@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
-
 %:
 	dh $@
+
+clean:
+	rm -rf build
