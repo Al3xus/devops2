@@ -1,7 +1,7 @@
 Source: myprogram
 Section: utils
 Priority: optional
-Maintainer: Your Name <0al3xus0@gmail.com>
+Maintainer: Al3xus <0al3xus0@gmail.com>
 Build-Depends: debhelper-compat (= 13), g++
 Standards-Version: 4.5.0
 Homepage: https://Al3xus-debian.com
