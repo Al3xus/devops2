@@ -25,8 +25,8 @@ jobs:
       run: |
         debuild -us -uc
 
-      - name: Upload .deb package
-        uses: actions/upload-artifact@v4
-        with:
-          name: deb-package
-          path: "./*.deb"
+    - name: Upload .deb package
+      uses: actions/upload-artifact@v4
+      with:
+         name: deb-package
+         path: "./*.deb"
