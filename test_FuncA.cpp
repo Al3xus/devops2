@@ -11,6 +11,7 @@ void test_factorial() {
     assert(obj.factorial(10) == 3628800);
 }
 
+
 void test_solve() {
     FuncA obj;
     double x = 0.5;
