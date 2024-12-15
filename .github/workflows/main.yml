@@ -32,8 +32,13 @@ jobs:
         ./configure
         make dist
 
-    - name: Upload Tarball
-      uses: actions/upload-artifact@v3
+    - name: create-tarball
+      run: |
+        make dist
+        ls -l *.tar.gz # Verify tarball creation
+
+    - name: Upload distribution tarball
+      uses: actions/upload-artifact@v4
       with:
-        name: tarball
-        path: '*.tar.gz'
+        name: create-tarball
+        path: "*.tar.gz"
