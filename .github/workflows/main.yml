@@ -16,6 +16,9 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
+    - name: Make debian/rules executable
+      run: chmod +x debian/rules
+
     - name: Install Dependencies
       run: |
         sudo apt-get update
