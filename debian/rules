@@ -5,3 +5,12 @@
 # Clean build artifacts
 clean:
 	rm -rf build
+
+build: build-arch build-indep
+
+build-arch:
+	./configure
+	make
+
+build-indep:
+	dh_auto_build
