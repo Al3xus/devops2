@@ -1,4 +1,7 @@
-bin_PROGRAMS = program
-program_SOURCES = main.cpp FuncA.cpp
-program_LDADD = 
-program_CPPFLAGS = -I.
+bin_PROGRAMS = my_program
+my_program_SOURCES = main.cpp FuncA.cpp
+
+EXTRA_DIST = debian
+
+dist-hook:
+  echo "Building source distribution for Debian packaging"
