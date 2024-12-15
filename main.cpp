@@ -1,9 +1,7 @@
 #include <iostream>
-#include "FuncA.h"
+#include <cmath>
 
 int main() {
-    FuncA object;
-
     double x;
     int n;
 
@@ -18,7 +16,11 @@ int main() {
     std::cout << "Enter the number of terms (n): ";
     std::cin >> n;
 
-    double result = object.solve(x, n);
+    double result = 0.0;
+    for (int i = 0; i < n; ++i) {
+        result += std::pow(x, i);
+    }
+
     std::cout << "Result of the series sum: " << result << std::endl;
 
     return 0;
