@@ -4,10 +4,7 @@
 
 class FuncA {
 public:
-    int solve(int n); 
-
-private:
-    int factorial(int n);
+    double solve(double x, int n); // Solves the series sum
 };
 
 #endif
