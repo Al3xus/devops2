@@ -11,3 +11,5 @@ build: build-arch build-indep
 build-arch:
 	./configure
 	make
+build-indep:
+	dh_auto_build
