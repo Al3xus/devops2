@@ -277,6 +277,7 @@ AUTOMAKE_OPTIONS = foreign
 myprogram_SOURCES = main.cpp FuncA.cpp
 test_FuncA_SOURCES = test_FuncA.cpp FuncA.cpp
 test_FuncA_LDADD = -lm
+AM_CPPFLAGS = -I$(top_srcdir)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
