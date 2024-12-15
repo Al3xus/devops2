@@ -1,11 +1,10 @@
-#pragma once
-#ifndef FUNCA_H
-#define FUNCA_H
+#include "FuncA.h"
 
-class FuncA {
-public:
-    long long factorial(int n);
-    double solve(double x, int n); // Solves the series sum
-};
-    
-#endif
+long long FuncA::factorial(int n) {
+    if (n == 0 || n == 1) return 1;
+    long long result = 1;
+    for (int i = 2; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
+}
