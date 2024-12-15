@@ -1,26 +1,39 @@
-name: CI Build
+name: Build Tarball Distribution
 
 on:
   push:
     branches:
-      - branchMake
+      - branchAutomake
   pull_request:
     branches:
-      - branchMake
+      - branchAutomake
 
 jobs:
-  build:
+  build-tarball:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y g++
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y autoconf automake libtool build-essential
 
-    - name: Build the project
-      run: make
+    - name: Generate Build System
+      run: |
+        aclocal
+        autoconf
+        automake --add-missing
 
-    - name: Run the binary
-      run: ./program
+    - name: Configure and Build
+      run: |
+        ./configure
+        make dist
+
+    - name: Upload Tarball
+      uses: actions/upload-artifact@v3
+      with:
+        name: tarball
+        path: '*.tar.gz'
