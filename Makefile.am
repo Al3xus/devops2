@@ -1,4 +1,9 @@
-bin_PROGRAMS = my_program
-my_program_SOURCES = main.cpp FuncA.cpp
+AUTOMAKE_OPTIONS = foreign
 
-EXTRA_DIST = debian
+bin_PROGRAMS = myprogram
+myprogram_SOURCES = main.cpp FuncA.cpp
+
+check_PROGRAMS = test_FuncA
+test_FuncA_SOURCES = test_FuncA.cpp FuncA.cpp
+
+test_FuncA_LDADD = -lm
