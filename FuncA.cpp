@@ -1,12 +1,12 @@
 #include "FuncA.h"
-#include <cmath>
 
-double FuncA::solve(double x, int n) {
-    double sum = 0.0;
-
-    for (int i = 0; i <= n; ++i) {
-        sum += std::pow(x, i);
+long long FuncA::factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
     }
-
-    return sum;
+    long long result = 1;
+    for (int i = 2; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
 }
