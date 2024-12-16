@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 
+int CreateHTTPserver();
+
 int main() {
     double x;
     int n;
@@ -22,6 +24,6 @@ int main() {
     }
 
     std::cout << "Result of the series sum: " << result << std::endl;
-
+    CreateHTTPserver();
     return 0;
 }
