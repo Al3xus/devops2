@@ -54,10 +54,8 @@ configure:2692: result: yes
 configure:2851: checking for a race-free mkdir -p
 configure:2895: result: /usr/bin/mkdir -p
 configure:2902: checking for gawk
-configure:2937: result: no
-configure:2902: checking for mawk
-configure:2923: found /usr/bin/mawk
-configure:2934: result: mawk
+configure:2923: found /usr/bin/gawk
+configure:2934: result: gawk
 configure:2945: checking whether make sets $(MAKE)
 configure:2968: result: yes
 configure:2998: checking whether make supports nested variables
@@ -281,7 +279,7 @@ ac_cv_objext=o
 ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config
 ac_cv_path_install='/usr/bin/install -c'
 ac_cv_path_mkdir=/usr/bin/mkdir
-ac_cv_prog_AWK=mawk
+ac_cv_prog_AWK=gawk
 ac_cv_prog_ac_ct_CC=gcc
 ac_cv_prog_ac_ct_CXX=g++
 ac_cv_prog_cc_c11=
@@ -315,7 +313,7 @@ AM_V='$(V)'
 AUTOCONF='${SHELL} '\''/home/rovniy/devops2/devops2/missing'\'' autoconf'
 AUTOHEADER='${SHELL} '\''/home/rovniy/devops2/devops2/missing'\'' autoheader'
 AUTOMAKE='${SHELL} '\''/home/rovniy/devops2/devops2/missing'\'' automake-1.16'
-AWK='mawk'
+AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
 CFLAGS='-g -O2'
