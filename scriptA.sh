@@ -6,7 +6,7 @@ deploy_container() {
         sudo docker rm -f "$1"
     fi
     echo "Створення контейнера $1 на ядрі CPU #$2"
-    sudo docker run --name "$1" --cpuset-cpus="$2" --network bridge -d al3xus/programlab5
+    sudo docker run --name "$1" --cpuset-cpus="$2" --network bridge -d al3xus22/programlab5
 }
 
 # Функція для зупинки контейнера
@@ -33,7 +33,7 @@ assign_cpu_core() {
 # Функція для перевірки та оновлення образів
 check_and_update_images() {
     echo "Перевірка наявності нових версій образів..."
-    pull_result=$(sudo docker pull al3xus/programlab5 | grep "Downloaded newer image")
+    pull_result=$(sudo docker pull al3xus22/programlab5 | grep "Downloaded newer image")
     if [ -n "$pull_result" ]; then
         echo "Новий образ знайдено. Виконую оновлення контейнерів..."
         for container in primary_container backup_container tertiary_container; do
